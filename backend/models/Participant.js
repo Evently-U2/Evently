@@ -79,7 +79,7 @@ ParticipantSchema.methods.createJWT = function () {
     process.env.JWT_SECRET,
     
     {
-      expiresIn: process.env.JWT_LIFETIME,
+      expiresIn: process.env.JWT_LIFETIME
     }
 
   )

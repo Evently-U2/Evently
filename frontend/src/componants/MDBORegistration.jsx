@@ -114,13 +114,13 @@ const MDBORegistration = () => {
         
         if (totalValidInputs === (Object.keys(errors).length)) {
 
-          //console.log("Sending data")
+          // console.log("Sending data")
 
           let dataToSend = formData
 
           delete dataToSend["confirmPassword"]
 
-          //console.log(dataToSend)
+          // console.log(dataToSend)
 
           await axios.post("/register/organizer", dataToSend)
             .then((response) => {

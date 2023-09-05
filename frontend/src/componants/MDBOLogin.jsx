@@ -55,7 +55,7 @@ export default function MDBOLogin() {
     
     await axios.post('/login/organizer', loginData)
       .then((response) => {
-        // //console.log(response);
+        console.log(response);
         //console.log('Login Successfully as Organizer')
         // Redirect to main page
       })

@@ -26,7 +26,7 @@ const organizer = async (req, res) => {
 
     const token = organizer.createJWT()
 
-    res.cookie('evently-jwt-organizer', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
+    // res.cookie('evently-jwt-organizer', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
 
     res.status(StatusCodes.OK).json({
 
@@ -42,6 +42,8 @@ const organizer = async (req, res) => {
 const participant = async (req, res) => {
 
     const { email, password } = req.body
+
+    console.log(req.body)
   
     const participant = await Models.Participant.findOne({ email })
     
@@ -52,16 +54,16 @@ const participant = async (req, res) => {
     }
     
     const isPasswordCorrect = await participant.comparePassword(password)
-    
+
     if (!isPasswordCorrect) {
         
         throw new Errors.UnauthenticatedError('Password is incorrect')
-    
+
     }
 
     const token = participant.createJWT()
 
-    res.cookie('evently-jwt-participant', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
+    // res.cookie('evently-jwt-participant', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
 
     res.status(StatusCodes.OK).json({
 
