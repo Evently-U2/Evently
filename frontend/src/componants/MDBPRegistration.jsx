@@ -111,7 +111,7 @@ export default function MDBPRegistration() {
   };
 
   const sendDataToBackend = async () => {
-    //console.log("send to backend",formData)
+    // console.log("send to backend",formData)
     if (!errors.password.state && !errors.confirmPassword.state) {
       if (formData.password === formData.confirmPassword) {
         let totalValidInputs = 0;
@@ -121,8 +121,8 @@ export default function MDBPRegistration() {
                 // //console.log(key)
           }
         }
-        // //console.log(totalValidInputs,Object.keys(errors).length)
-        if (totalValidInputs === Object.keys(errors).length-1) {
+        console.log(totalValidInputs,Object.keys(errors).length)
+        if (totalValidInputs === Object.keys(errors).length) {
             //console.log("total",formData)
           let dataToSend = formData;
 
