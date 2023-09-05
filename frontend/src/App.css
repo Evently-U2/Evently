@@ -1,0 +1,16 @@
+.form-div {
+    width: 30%;
+    /* height: 100vh; */
+}
+
+form {
+    height: auto;
+}
+
+.App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto ;
+}
+
