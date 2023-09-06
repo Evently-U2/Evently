@@ -233,16 +233,6 @@ export default function MDBPRegistration() {
           <div className="error-message" >Please provide a valid email</div>
         )
       ) : null}
-      <MDBInput
-        label="Password"
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        className="mt-4"
-        onFocusCapture={(event) => {unsetErrors(event)}}
-      />
-      {errors.password.state ? <div className="error-message" >Please provide password</div> : null}
       {/* <MDBInput
         label="Gender"
         type="text"
@@ -295,6 +285,17 @@ export default function MDBPRegistration() {
       {errors.completionYear.state ? (
           <div className="error-message" >Please provide your college completion year</div>
         ) : null}
+      <MDBInput
+      label="Password"
+      type="password"
+      name="password"
+      value={formData.password}
+      onChange={handleChange}
+      className="mt-4"
+      onFocusCapture={(event) => {unsetErrors(event)}}
+      />
+      {errors.password.state ? <div className="error-message" >Please provide a valid password(Atleat 6 character including[numbers, lower and upper case letters and special characters])</div> : null}
+      
       <MDBInput
         label="Confirm Password"
         type="password"

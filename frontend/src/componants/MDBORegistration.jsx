@@ -258,7 +258,7 @@ const MDBORegistration = () => {
         onFocusCapture={(event) => {unsetErrors(event)}}
       />
       {errors.password.state ? (
-          <div className="error-message" >Please provide a valid password</div>
+          <div className="error-message" >Please provide a valid password(Atleat 6 character including[numbers, lower and upper case letters and special characters])</div>
         ) : null}
       <MDBInput
         label="Confirm Password"

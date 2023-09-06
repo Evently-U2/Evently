@@ -25,10 +25,6 @@
   margin-bottom: 0;
 }
 
-.error-message {
-    color: #ff0000; 
-    font-size: 0.875rem;
-}
 
 .text-center {
     display: flex;
@@ -134,4 +130,10 @@ select {
 
   color: #bdbdbd;
   
+}
+
+
+.error-message {
+  color: #ff0000; 
+  font-size: 0.875rem;
 }
