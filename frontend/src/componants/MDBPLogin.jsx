@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import axios from "axios";
-import "./FormStyles.css"; // Import CSS for styling
 
 export default function MDBPLogin() {
   const [loginData, setLoginData] = useState({

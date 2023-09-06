@@ -271,7 +271,6 @@ import MDBPRegistration from './MDBPRegistration';
 import MDBORegistration from './MDBORegistration';
 import MDBOLogin from './MDBOLogin';
 import MDBPLogin from './MDBPLogin';
-import './FormStyles.css'
 import {
   MDBTabs,
   MDBTabsItem,
@@ -279,6 +278,9 @@ import {
   MDBTabsContent,
   MDBTabsPane,
 } from 'mdb-react-ui-kit';
+
+
+import logo from '../assets/logoSymbol.png'
 
 export default function MDBForm() {
   const [loginRegisterActive, setLoginRegisterActive] = useState('login');
@@ -293,86 +295,94 @@ export default function MDBForm() {
   };
 
   return (
-    <div>
-      <MDBTabs pills justify className='mb-3'>
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleLoginRegisterClick('login')}
-            active={loginRegisterActive === 'login'}
-          >
-            Login
-          </MDBTabsLink>
-        </MDBTabsItem>
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleLoginRegisterClick('register')}
-            active={loginRegisterActive === 'register'}
-          >
-            Register
-          </MDBTabsLink>
-        </MDBTabsItem>
-      </MDBTabs>
+    <div className='form-formDiv'>
+      <div className='form-presentation'>
+        <div className='form-brand'>
+          <img src={logo} alt="Logo" className='form-presentationLogo'/>
+          <p>Evently</p>
+        </div>
+      </div>
+      <div className='form-allFormsContainer'>
+        <MDBTabs pills justify className='form-switchContainer'>
+          <MDBTabsItem>
+            <MDBTabsLink
+              onClick={() => handleLoginRegisterClick('login')}
+              active={loginRegisterActive === 'login'}
+            >
+              Login
+            </MDBTabsLink>
+          </MDBTabsItem>
+          <MDBTabsItem>
+            <MDBTabsLink
+              onClick={() => handleLoginRegisterClick('register')}
+              active={loginRegisterActive === 'register'}
+            >
+              Register
+            </MDBTabsLink>
+          </MDBTabsItem>
+        </MDBTabs>
 
-      <MDBTabsContent>
-        <MDBTabsPane show={loginRegisterActive === 'login'}>
-          <div className='text-center'>
-            <MDBTabs pills className='mb-3'>
-              <MDBTabsItem>
-                <MDBTabsLink
-                  onClick={() => handleUserTypeClick('participant')}
-                  active={userType === 'participant'}
-                >
-                  Participant
-                </MDBTabsLink>
-              </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink
-                  onClick={() => handleUserTypeClick('organizer')}
-                  active={userType === 'organizer'}
-                >
-                  Organizer
-                </MDBTabsLink>
-              </MDBTabsItem>
-            </MDBTabs>
-          </div>
-          {userType === 'participant' ? (
-            // Participant Login Form
-            <MDBPLogin />
-          ) : (
-            // Organizer Login Form
-            <MDBOLogin />
-          )}
-        </MDBTabsPane>
-        <MDBTabsPane show={loginRegisterActive === 'register'}>
-          <div className='text-center'>
-            <MDBTabs pills className='mb-3'>
-              <MDBTabsItem>
-                <MDBTabsLink
-                  onClick={() => handleUserTypeClick('participant')}
-                  active={userType === 'participant'}
-                >
-                  Participant
-                </MDBTabsLink>
-              </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink
-                  onClick={() => handleUserTypeClick('organizer')}
-                  active={userType === 'organizer'}
-                >
-                  Organizer
-                </MDBTabsLink>
-              </MDBTabsItem>
-            </MDBTabs>
-          </div>
-          {userType === 'participant' ? (
-            // Participant Registration Form
-              <MDBPRegistration />
-          ) : (
-            // Organizer Registration Form
-              <MDBORegistration />
-          )}
-        </MDBTabsPane>
-      </MDBTabsContent>
+        <MDBTabsContent className='form-formInputs'>
+          <MDBTabsPane show={loginRegisterActive === 'login'}>
+            <div className='text-center'>
+              <MDBTabs pills className='form-switchContainer'>
+                <MDBTabsItem>
+                  <MDBTabsLink
+                    onClick={() => handleUserTypeClick('participant')}
+                    active={userType === 'participant'}
+                  >
+                    Participant
+                  </MDBTabsLink>
+                </MDBTabsItem>
+                <MDBTabsItem>
+                  <MDBTabsLink
+                    onClick={() => handleUserTypeClick('organizer')}
+                    active={userType === 'organizer'}
+                  >
+                    Organizer
+                  </MDBTabsLink>
+                </MDBTabsItem>
+              </MDBTabs>
+            </div>
+            {userType === 'participant' ? (
+              // Participant Login Form
+              <MDBPLogin />
+            ) : (
+              // Organizer Login Form
+              <MDBOLogin />
+            )}
+          </MDBTabsPane>
+          <MDBTabsPane show={loginRegisterActive === 'register'}>
+            <div className='text-center'>
+              <MDBTabs pills className='form-switchContainer'>
+                <MDBTabsItem>
+                  <MDBTabsLink
+                    onClick={() => handleUserTypeClick('participant')}
+                    active={userType === 'participant'}
+                  >
+                    Participant
+                  </MDBTabsLink>
+                </MDBTabsItem>
+                <MDBTabsItem>
+                  <MDBTabsLink
+                    onClick={() => handleUserTypeClick('organizer')}
+                    active={userType === 'organizer'}
+                  >
+                    Organizer
+                  </MDBTabsLink>
+                </MDBTabsItem>
+              </MDBTabs>
+            </div>
+            {userType === 'participant' ? (
+              // Participant Registration Form
+                <MDBPRegistration />
+            ) : (
+              // Organizer Registration Form
+                <MDBORegistration />
+            )}
+          </MDBTabsPane>
+        </MDBTabsContent>
+      </div>
     </div>
   );
 }

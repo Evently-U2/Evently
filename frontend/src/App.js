@@ -1,6 +1,5 @@
 // import ParticipantRegistration from './componants/ParticipantRegistration';
 // import CollegeChecking from './componants/CollegeChecking'
-import './App.css';
 // import ParticipantLogin from './componants/ParticipantLogin';
 // import OrganizerRegistration from './componants/OrganizerRegistration';
 // import ParticipantRegistration from './componants/ParticipantRegistration';
@@ -9,6 +8,7 @@ import MDBForm from './componants/MDBForm';
 // import { useEffect } from 'react';
 // import OAuth2Login from './componants/OAuth2Login';
 // import { gapi } from 'gapi-script'
+import './App.css';
 
 function App() {
   // const CLIENT_ID = String(process.env.CLIENT_ID)
@@ -30,9 +30,9 @@ function App() {
         <ParticipantLogin />
         <OrganizerLogin /> 
       </header> */}
-      <div className='form-div'>
+      {/* <div className='app-formPage'> */}
           <MDBForm />
-      </div>
+      {/* </div> */}
       {/* <OAuth2Login /> */}
     </div>
   );

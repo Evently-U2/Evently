@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import "./FormStyles.css"; // Import CSS for styling
 import axios from "axios";
+
 
 export default function MDBPRegistration() {
   const genderOptions = ["Male", "Female", "Other"];
@@ -256,7 +256,7 @@ export default function MDBPRegistration() {
         name="gender"
         onChange={handleChange}
         value={formData.gender}
-        className="mt-4"
+        className="mt-4 form-gender"
         onFocusCapture={(event) => {unsetErrors(event)}}
         required
       >
