@@ -67,7 +67,7 @@ OrganizerSchema.methods.createJWT = function () {
 
   return jwt.sign (
     
-    { userId: this._id, email: this.email },
+    { mongoId: this._id, email: this.email },
     
     process.env.JWT_SECRET,
     
