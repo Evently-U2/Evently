@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import axios from "axios";
+import { Vortex } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const MDBORegistration = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     organizerName: "",
     organizerHeadName: "",
@@ -65,6 +69,7 @@ const MDBORegistration = () => {
 }
 
   const validateForm = () => {
+    setIsLoading(true);
     // Trim all form field values
     const trimmedformData = {};
     for (const key in formData) {
@@ -94,10 +99,12 @@ const MDBORegistration = () => {
         updatedErrors[key].state = false;
       }
     }
+    setIsLoading(false);
     setErrors(updatedErrors);
   };
 
   const sendDataToBackend = async () => {
+    setIsLoading(true);
     if (!errors.password.state && !errors.confirmPassword.state) {
 
       if (formData.password === formData.confirmPassword) {
@@ -123,12 +130,13 @@ const MDBORegistration = () => {
 
           await axios.post("/register/organizer", dataToSend)
             .then((response) => {
-          
-              // //console.log(response)
-              // //console.log("Registered successfully as Organizer");
+              console.log("Registered successfully")
+              setIsLoading(false);
+              navigate('/');
 
             })
             .catch((error) => {
+              setIsLoading(false)
               // //console.log("Error during registration", error);
               // //console.log(error.response);
               if(error.response.data.msg === 'duplicate email') {
@@ -150,6 +158,7 @@ const MDBORegistration = () => {
             
         }
       } else {
+        setIsLoading(false);
         setErrors((prevData) => {
           return {
             ...prevData,
@@ -273,7 +282,26 @@ const MDBORegistration = () => {
           <div className="error-message" >Please confirm your password</div>
         ) : null}
       <MDBBtn type="submit" className="mt-4" block>
-        Sign up as Organizer
+      {isLoading ? (
+            <Vortex
+              visible={true}
+              height="30"
+              width="30"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={[
+                "#ed2690",
+                "#000032",
+                "#ed2690",
+                "#000032",
+                "#000032",
+                "#ed2690",
+              ]}
+            />
+          ) : (
+            "Sign Up as Organizer"
+          )}
       </MDBBtn>
     </form>
   );

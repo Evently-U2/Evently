@@ -52,6 +52,19 @@ app.get('/', (req,res)=>{
 
 })
 
+app.post('/auth/login/uday', (req,res) => {
+  console.log()
+  res.send(JSON.stringify({
+    isValid:true,
+    user: {
+      name: 'Uday',
+      email: 'udaykpatel2004@gmail.com'
+    },
+    token: 'xyz'
+    
+  }));
+});
+
 
 
 

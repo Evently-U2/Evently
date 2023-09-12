@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import axios from "axios";
+import { Vortex } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MDBPRegistration() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const genderOptions = ["Male", "Female", "Other"];
   const [formData, setFormData] = useState({
     firstName: "",
@@ -82,6 +86,7 @@ export default function MDBPRegistration() {
   const validateForm = () => {
     //console.log("Inside the validate form")
     // Trim all form field values
+    setIsLoading(true);
     const trimmedFormData = {};
     for (const key in formData) {
       trimmedFormData[key] = formData[key].trim();
@@ -106,12 +111,12 @@ export default function MDBPRegistration() {
         updatedErrors[key].state = false;
       }
     }
-    // //console.log(formData)
+    setIsLoading(false);
     setErrors(updatedErrors);
   };
 
   const sendDataToBackend = async () => {
-    // console.log("send to backend",formData)
+    setIsLoading(true);
     if (!errors.password.state && !errors.confirmPassword.state) {
       if (formData.password === formData.confirmPassword) {
         let totalValidInputs = 0;
@@ -122,7 +127,7 @@ export default function MDBPRegistration() {
           }
         }
         console.log(totalValidInputs,Object.keys(errors).length)
-        if (totalValidInputs === Object.keys(errors).length) {
+        if (totalValidInputs === Object.keys(errors).length-1) {
             //console.log("total",formData)
           let dataToSend = formData;
 
@@ -133,10 +138,12 @@ export default function MDBPRegistration() {
           await axios
             .post("/register/participant", dataToSend)
             .then((response) => {
-              console.log(response)
-              console.log("Registered Successfully as Participant");
+              console.log(dataToSend);
+              setIsLoading(false);
+              navigate('/');
             })
             .catch((error) => {
+              setIsLoading(false)
               //console.log("Error during registration", error);
               //console.log(error.response);
               if (error.response.data.msg === "duplicate email") {
@@ -154,6 +161,7 @@ export default function MDBPRegistration() {
             });
         }
       } else {
+        setIsLoading(false);
         setErrors((prevData) => {
           return {
             ...prevData,
@@ -309,7 +317,26 @@ export default function MDBPRegistration() {
           <div className="error-message" >Please confirm your password</div>
         ) : null}
       <MDBBtn type="submit" className="mt-4" block>
-        Sign up as Participant
+      {isLoading ? (
+            <Vortex
+              visible={true}
+              height="30"
+              width="30"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={[
+                "#ed2690",
+                "#000032",
+                "#ed2690",
+                "#000032",
+                "#000032",
+                "#ed2690",
+              ]}
+            />
+          ) : (
+            "Sign Up as Participant"
+          )}
       </MDBBtn>
     </form>
   );
