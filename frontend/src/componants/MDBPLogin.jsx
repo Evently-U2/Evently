@@ -1,13 +1,16 @@
-import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
+import { Vortex } from "react-loader-spinner";
 
 export default function MDBPLogin() {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: {
       state: false,
@@ -27,17 +30,16 @@ export default function MDBPLogin() {
 
   const unsetErrors = (event) => {
     let key = event.target.name;
-    // console.log(key)
     setErrors((prevData) => {
       return {
         ...prevData,
         [key]: {
           ...prevData[key],
-          state: false
-      }
-    }
-    })
-  }
+          state: false,
+        },
+      };
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,67 +51,110 @@ export default function MDBPLogin() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     // Send loginData to backend for authentication
-    
-    await axios.post('/login/participant', loginData)
+    await axios
+      .post("/login/participant", loginData)
       .then((response) => {
-        // console.log(response);
-        // console.log('Login Successfully as participant')
-        // Redirect to main page
+        // Actually here if condition is not needed
+        if (response.data.isValid) {
+          localStorage.setItem("evently-jwt-participant", response.data.token);
+          setIsLoading(false)
+          navigate("/");
+        } else {
+          navigate("/");
+        }
       })
       .catch((error) => {
-        // console.log(error);
-        if(error.response.data.msg === 'Email not found'){
+        setIsLoading(false)
+        if (error.response.data.msg === "Email not found") {
           setErrors((prevData) => {
             return {
               ...prevData,
               email: {
                 state: true,
-                errMsg: 'Invalid email'
-              }
-            }
-          })
-        } else if (error.response.data.msg === 'Password is incorrect') {
+                errMsg: "Invalid email",
+              },
+            };
+          });
+        } else if (error.response.data.msg === "Password is incorrect") {
           setErrors((prevData) => {
             return {
               ...prevData,
               password: {
                 state: true,
-                errMsg: 'Invalid Password'
-              }
-            }
-          })
+                errMsg: "Invalid Password",
+              },
+            };
+          });
         }
-      })
+      });
   };
 
   return (
-    <form className="login-form" onSubmit={handleLogin}>
-      {" "}
-      {/* Apply CSS class for styling */}
-      <MDBInput
-        label="Email"
-        type="email"
-        name="email"
-        value={loginData.email}
-        onChange={handleChange}
-        className="mt-4"
-        onFocusCapture={(event) => {unsetErrors(event)}}
-      />
-      {errors.email.state ? (errors.email.errMsg !== '' ? <div className="error-message" >{errors.email.errMsg}</div> : <div className="error-message" >Please provide a valid email</div> )  : null}
-      <MDBInput
-        label="Password"
-        type="password"
-        name="password"
-        value={loginData.password}
-        onChange={handleChange}
-        className="mt-4"
-        onFocusCapture={(event) => {unsetErrors(event)}}
-      />
-      {errors.password.state ? (errors.password.errMsg !== '' ? <div className="error-message" >{errors.password.errMsg}</div> : <div className="error-message" >Please provide the password</div> )  : null}
-      <MDBBtn type="submit" className="mt-4" block>
-        Sign in as Participant
-      </MDBBtn>
-    </form>
+    <>
+      <form className="login-form" onSubmit={handleLogin}>
+        {" "}
+        {/* Apply CSS class for styling */}
+        <MDBInput
+          label="Email"
+          type="email"
+          name="email"
+          value={loginData.email}
+          onChange={handleChange}
+          className="mt-4"
+          onFocusCapture={(event) => {
+            unsetErrors(event);
+          }}
+        />
+        {errors.email.state ? (
+          errors.email.errMsg !== "" ? (
+            <div className="error-message">{errors.email.errMsg}</div>
+          ) : (
+            <div className="error-message">Please provide a valid email</div>
+          )
+        ) : null}
+        <MDBInput
+          label="Password"
+          type="password"
+          name="password"
+          value={loginData.password}
+          onChange={handleChange}
+          className="mt-4"
+          onFocusCapture={(event) => {
+            unsetErrors(event);
+          }}
+        />
+        {errors.password.state ? (
+          errors.password.errMsg !== "" ? (
+            <div className="error-message">{errors.password.errMsg}</div>
+          ) : (
+            <div className="error-message">Please provide the password</div>
+          )
+        ) : null}
+        <MDBBtn type="submit" className="mt-4" block>
+          {isLoading ? (
+            <Vortex
+              visible={true}
+              height="30"
+              width="30"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={[
+                "#ed2690",
+                "#000032",
+                "#ed2690",
+                "#000032",
+                "#000032",
+                "#ed2690",
+              ]}
+            />
+          ) : (
+            "Sign in as Participant"
+          )}
+        </MDBBtn>
+      </form>
+    </>
   );
 }

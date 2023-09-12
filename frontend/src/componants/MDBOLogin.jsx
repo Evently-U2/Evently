@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
+import { Vortex } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MDBOLogin() {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: {
       state: false,
@@ -49,17 +52,19 @@ export default function MDBOLogin() {
   }
 
   const handleLogin = async (event) => {
+    setIsLoading(true)
     event.preventDefault();
     // Send loginData to backend for authentication
     
     await axios.post('/login/organizer', loginData)
       .then((response) => {
-        console.log(response);
-        //console.log('Login Successfully as Organizer')
-        // Redirect to main page
+        localStorage.setItem("evently-jwt-organizer", response.data.token);
+        setIsLoading(false);
+        navigate("/");
       })
       .catch((error) => {
         //console.log(error);
+        setIsLoading(false)
         if(error.response.data.msg === 'Email not found'){
           setErrors((prevData) => {
             return {
@@ -107,7 +112,26 @@ export default function MDBOLogin() {
       />
       {errors.password.state ? (errors.password.errMsg !== '' ? <div className="error-message" >{errors.password.errMsg}</div> : <div className="error-message" >Please provide the password</div> )  : null}
       <MDBBtn type="submit" className="mt-4" block >
-        Sign in as Organizer
+      {isLoading ? (
+            <Vortex
+              visible={true}
+              height="30"
+              width="30"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={[
+                "#ed2690",
+                "#000032",
+                "#ed2690",
+                "#000032",
+                "#000032",
+                "#ed2690",
+              ]}
+            />
+          ) : (
+            "Sign in as Organizer"
+          )}
       </MDBBtn>
     </form>
   );

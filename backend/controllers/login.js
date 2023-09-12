@@ -43,7 +43,9 @@ const organizer = async (req, res) => {
 
     organizer["password"] = "secret"
 
-    // res.cookie('evently-jwt-organizer', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
+    organizer["password"] = "secret"
+
+    // res.cookie('evently-jwt-organizer', token, { httpOnly: false, maxAge: process.env.JWT_LIFETIME * 1000 })
 
     res.status(StatusCodes.OK).json({
 
@@ -92,6 +94,7 @@ const participant = async (req, res) => {
 
     }
 
+    
     const token = participant.createJWT()
 
     participant["password"] = "secret"
