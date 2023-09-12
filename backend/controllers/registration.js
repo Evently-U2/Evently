@@ -11,7 +11,7 @@ const organizer = async (req,res) => {
 
     res.status(StatusCodes.CREATED).json({
 
-        ...req.body,
+        organizer,
         isValid: true,
         token
         
@@ -28,7 +28,7 @@ const participant = async (req,res) => {
 
     res.status(StatusCodes.CREATED).json({
 
-            ...req.body,
+            participant,
             isValid: true,
             token
 

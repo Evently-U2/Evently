@@ -40,8 +40,10 @@ app.use(cookieParser())
 
 //routes
 
-app.use('/register',routes.registeration)
-app.use('/login',routes.login)
+app.use('/register', routes.registeration)
+app.use('/login', middlewares.auth, routes.login)
+
+
 
     //temp
 app.get('/', (req,res)=>{
