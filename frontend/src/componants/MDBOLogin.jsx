@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 export default function MDBOLogin() {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
+    istoken: false,
+    token: "",
+    purpose: "",
     email: "",
     password: "",
   });
