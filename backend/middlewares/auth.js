@@ -6,6 +6,7 @@ const auth = async (req, res, next) => {
   
     const { istoken, token, purpose, email, password } = req.body
 
+    console.log("inside the auth controller",req.body)
 
     if(istoken == false)
     {
@@ -14,13 +15,14 @@ const auth = async (req, res, next) => {
     }
 
 
-    if (!token.startsWith('Bearer ')) {
+    // if (!token.startsWith('Bearer ')) {
 
-        throw new UnauthenticatedError('Unauthenticated')
-    }
+    //     throw new UnauthenticatedError('Unauthenticated')
+    // }
 
 
-    const payload = token.split(' ')[1]
+    // const payload = token.split(' ')[1]
+    const payload = token
 
 
     try {
@@ -28,7 +30,7 @@ const auth = async (req, res, next) => {
         const decoded = jwt.verify(payload, process.env.JWT_SECRET)
         
         const { mongoId, email } = decoded
-
+        console.log(mongoId,email)
         // if(purpose == "explore")
         // {
 

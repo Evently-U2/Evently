@@ -12,7 +12,8 @@ const organizer = async (req, res) => {
     {
         const organizer = await Models.Organizer.findOne({ _id: mongoId })
 
-        organizer["password"] = "secret"
+        // organizer["password"] = "secret"
+        delete organizer.password
 
         res.status(StatusCodes.OK).json({
 
@@ -43,7 +44,8 @@ const organizer = async (req, res) => {
 
     organizer["password"] = "secret"
 
-    organizer["password"] = "secret"
+    delete organizer.password
+    // organizer["password"] = "secret"
 
     // res.cookie('evently-jwt-organizer', token, { httpOnly: false, maxAge: process.env.JWT_LIFETIME * 1000 })
 
@@ -61,14 +63,17 @@ const organizer = async (req, res) => {
 const participant = async (req, res) => {
 
     const { mongoId, email, password } = req.body
+    console.log("inside participant controllers",req.body);
 
     if(mongoId)
     {
         const participant = await Models.Participant.findOne({ _id: mongoId })
 
-        participant["password"] = "secret"
+        // participant["password"] = "secret"
+        console.log("Inside mongo id", participant)
+        delete participant.password
 
-        res.status(StatusCodes.OK).json({
+        return res.status(StatusCodes.OK).json({
 
                 participant,
                 isValid: true,
@@ -76,7 +81,7 @@ const participant = async (req, res) => {
         })
 
     }
-
+    console.log("also printing this not good")
     const participant = await Models.Participant.findOne({ email })
     
     if (!participant) {

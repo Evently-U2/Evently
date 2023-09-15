@@ -1,3 +1,4 @@
+
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -5,12 +6,18 @@ import axios from "axios";
 import { Vortex } from "react-loader-spinner";
 
 export default function MDBPLogin() {
+
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [loginData, setLoginData] = useState({
+    istoken: false,
+    token: "",
+    purpose: "",
     email: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const [errors, setErrors] = useState({
     email: {
       state: false,
@@ -50,13 +57,12 @@ export default function MDBPLogin() {
   };
 
   const handleLogin = async (event) => {
+
     event.preventDefault();
     setIsLoading(true);
-    // Send loginData to backend for authentication
-    await axios
-      .post("/login/participant", loginData)
+    
+    await axios.post("/login/participant", loginData)
       .then((response) => {
-        // Actually here if condition is not needed
         if (response.data.isValid) {
           localStorage.setItem("evently-jwt-participant", response.data.token);
           setIsLoading(false)

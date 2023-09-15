@@ -8,7 +8,9 @@ import axios from "axios";
 const LandingPage = () => {
   // const { isLoading, setIsLoading } = useContext(LoadingContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    email: "",
+  });
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("evently-jwt-participant");
@@ -16,51 +18,45 @@ const LandingPage = () => {
     window.location.reload();
   };
   useEffect(() => {
+    let tokenOwner = "";
     const participantToken = localStorage.getItem("evently-jwt-participant");
     const organizerToken = localStorage.getItem("evently-jwt-organizer");
-
     if (participantToken || organizerToken) {
       const dataToSend = {
-        isToken: true,
-        token: ``,
+        istoken: true,
+        token: "",
         purpose: "verify",
-        user: "",
+        email: "",
+        password: "",
       };
 
       if (participantToken) {
-        dataToSend.token = `Bearer ${participantToken}`;
-        dataToSend.user = "participant";
+        // dataToSend.token = `Bearer ${participantToken}`;
+        dataToSend.token = participantToken;
+        tokenOwner = "participant";
       } else {
-        dataToSend.token = `Bearer ${organizerToken}`;
-        dataToSend.user = "organizer";
+        // dataToSend.token = `Bearer ${organizerToken}`;
+        dataToSend.token = organizerToken;
+        tokenOwner = "organizer";
       }
-      // Use async function here
+      console.log(tokenOwner);
       const fetchData = async () => {
         await axios
-          .post(`login/participant`, dataToSend)
+          .post(`login/${tokenOwner}`, dataToSend)
           .then((response) => {
-            // console.log("res",response);
-            if (response.data.response.isValid) {
-              setUserData(() => {
-                const newData = response.data.user;
-                return newData;
-              });
-              setIsLoading(false);
-            } else {
-              setIsLoading(false);
-              navigate("/");
-            }
+            const data = response.data[tokenOwner];
+            setUserData(data);
+            setIsLoading(false);
           })
           .catch((err) => {
-            
-            console.log();
+            console.log("hihihihihierrrrrrrrrr", err);
             setIsLoading(false);
           });
       };
-
       fetchData();
     } else {
-
+      console.log("Inside the error");
+      // navigate("/")
       setIsLoading(false);
     }
   }, [navigate]);
@@ -72,8 +68,12 @@ const LandingPage = () => {
       ) : (
         <div>
           This is the landing page. It will show user details if already logged
-          in; otherwise, it will show a normal landing page.
-          User - {userData.email ? userData.email : "Not login yet"}
+          in; otherwise, it will show a normal landing page. User -
+          {userData.firstName
+            ? userData.firstName
+            : userData.organizerName
+            ? userData.organizerName
+            : "Not Logged in"}
           <br />
           <button
             onClick={() => {
