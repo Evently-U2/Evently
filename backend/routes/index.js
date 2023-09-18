@@ -1,12 +1,12 @@
 const registeration = require('./registeration')
 const login = require('./login')
-const event = require('./event')
-const team = require('./team')
+const events = require('./events')
+const teams = require('./teams')
 
 module.exports = {
 
     registeration,
     login,
-    event,
-    team
+    events,
+    teams
 }

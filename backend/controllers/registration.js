@@ -4,12 +4,13 @@ const Models = require('../models/index')
 
 const organizer = async (req,res) => {
     
-    console.log(req.body)
     const organizer = await Models.Organizer.create({ ...req.body })
     const token = organizer.createJWT()
 
+    delete organizer.password
 
-    res.status(StatusCodes.CREATED).json({
+
+    return res.status(StatusCodes.CREATED).json({
 
         organizer,
         isValid: true,
@@ -25,10 +26,9 @@ const participant = async (req,res) => {
     const participant = await Models.Participant.create({ ...req.body })
     const token = participant.createJWT()
 
-    console.log(participant)
+    delete participant.password
 
-
-    res.status(StatusCodes.CREATED).json({
+    return res.status(StatusCodes.CREATED).json({
 
             participant,
             isValid: true,

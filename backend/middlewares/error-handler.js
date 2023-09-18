@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
 
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || 'Something went wrong try again later',
-    isValid: err.isValid || true
+    isValid: err.isValid || false
   
   }
 
@@ -46,6 +46,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'CastError') {
 
     // customError.msg = `No item found with id : ${err.value}`
+    
     customError.msg = "invalid id"
     customError.statusCode = StatusCodes.BAD_REQUEST
     

@@ -77,7 +77,9 @@ const EventSchema = new mongoose.Schema({
         ref: "Organizer",
         required: true,
     }
-});
+},
+    { timestamps: true }
+);
 
 
 module.exports = mongoose.model('Event', EventSchema)

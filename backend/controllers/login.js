@@ -6,16 +6,15 @@ const Errors = require('../errors/index')
 
 const organizer = async (req, res) => {
 
-    const { mongoId, email, password } = req.body
+    const { mongoID, email, password } = req.body
 
-    if(mongoId)
+    if(mongoID)
     {
-        const organizer = await Models.Organizer.findOne({ _id: mongoId })
+        const organizer = await Models.Organizer.findOne({ _id: mongoID })
 
-        // organizer["password"] = "secret"
         delete organizer.password
 
-        res.status(StatusCodes.OK).json({
+        return res.status(StatusCodes.OK).json({
 
                 organizer,
                 isValid: true,
@@ -42,14 +41,12 @@ const organizer = async (req, res) => {
 
     const token = organizer.createJWT()
 
-    organizer["password"] = "secret"
 
     delete organizer.password
-    // organizer["password"] = "secret"
 
     // res.cookie('evently-jwt-organizer', token, { httpOnly: false, maxAge: process.env.JWT_LIFETIME * 1000 })
 
-    res.status(StatusCodes.OK).json({
+    return res.status(StatusCodes.OK).json({
 
             organizer,
             isValid: true,
@@ -62,15 +59,12 @@ const organizer = async (req, res) => {
 
 const participant = async (req, res) => {
 
-    const { mongoId, email, password } = req.body
-    console.log("inside participant controllers",req.body);
+    const { mongoID, email, password } = req.body
 
-    if(mongoId)
+    if(mongoID)
     {
-        const participant = await Models.Participant.findOne({ _id: mongoId })
+        const participant = await Models.Participant.findOne({ _id: mongoID })
 
-        // participant["password"] = "secret"
-        console.log("Inside mongo id", participant)
         delete participant.password
 
         return res.status(StatusCodes.OK).json({
@@ -81,7 +75,7 @@ const participant = async (req, res) => {
         })
 
     }
-    console.log("also printing this not good")
+
     const participant = await Models.Participant.findOne({ email })
     
     if (!participant) {
@@ -101,12 +95,11 @@ const participant = async (req, res) => {
 
     
     const token = participant.createJWT()
-
-    participant["password"] = "secret"
+    delete participant.password
 
     // res.cookie('evently-jwt-participant', token, { httpOnly: true, maxAge: process.env.JWT_LIFETIME * 1000 })
 
-    res.status(StatusCodes.OK).json({
+    return res.status(StatusCodes.OK).json({
 
             participant,
             isValid: true,

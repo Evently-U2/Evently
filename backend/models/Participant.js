@@ -55,7 +55,9 @@ const ParticipantSchema = new mongoose.Schema({
       required: [true, 'Please provide completion year'],
       trim: true,
   },
-});
+},
+  { timestamps: true }
+);
 
 
 
@@ -74,7 +76,7 @@ ParticipantSchema.methods.createJWT = function () {
 
   return jwt.sign (
 
-    { mongoId: this._id, email: this.email },
+    { mongoID: this._id, email: this.email },
     
     process.env.JWT_SECRET,
     

@@ -13,7 +13,6 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide team name'],
     trim: true,
-    unique: true,
   },
   teamMembers: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -26,15 +25,17 @@ const TeamSchema = new mongoose.Schema({
     trim: true
   },
   isFood: {
-    type: true,
+    type: Boolean,
     default: false,
   },
   isStay: {
-    type: true,
+    type: Boolean,
     default: false,
   },
   
-});
+},
+  { timestamps: true }
+);
 
 
 
