@@ -6,12 +6,10 @@ const auth = async (req, res, next) => {
   
     const { istoken, token, purpose, email, password } = req.body
 
-    console.log("inside the auth controller",req.body)
-
     if(istoken == false)
     {
         next()
-        return 
+        return
     }
 
 
@@ -21,7 +19,7 @@ const auth = async (req, res, next) => {
     // }
 
 
-    // const payload = token.split(' ')[1]
+    // const payload = token.split(' ')[0]
     const payload = token
 
 
@@ -29,8 +27,9 @@ const auth = async (req, res, next) => {
 
         const decoded = jwt.verify(payload, process.env.JWT_SECRET)
         
-        const { mongoId, email } = decoded
-        console.log(mongoId,email)
+        const { mongoID, email } = decoded
+
+
         // if(purpose == "explore")
         // {
 
@@ -44,7 +43,7 @@ const auth = async (req, res, next) => {
         // }
         
 
-        req.body["mongoId"] =  mongoId
+        req.body["mongoID"] =  mongoID
         
         next()
     

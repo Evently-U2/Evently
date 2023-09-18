@@ -42,28 +42,31 @@ app.use(cookieParser())
 
 app.use('/register', routes.registeration)
 app.use('/login', middlewares.auth, routes.login)
+app.use('/events', middlewares.auth, routes.events)
+app.use('/teams', middlewares.auth, routes.teams)
 
 
 
     //temp
-app.get('/', (req,res)=>{
+      app.get('/', (req,res)=>{
 
-    res.send("<h1>Evently - Landing Page</h1>")
+          res.send("<h1>Evently - Landing Page</h1>")
 
-})
+      })
 
-app.post('/auth/login/uday', (req,res) => {
-  console.log()
-  res.send(JSON.stringify({
-    isValid:true,
-    user: {
-      name: 'Uday',
-      email: 'udaykpatel2004@gmail.com'
-    },
-    token: 'xyz'
+
+// app.post('/auth/login/uday', (req,res) => {
+//   console.log()
+//   res.send(JSON.stringify({
+//     isValid:true,
+//     user: {
+//       name: 'Uday',
+//       email: 'udaykpatel2004@gmail.com'
+//     },
+//     token: 'xyz'
     
-  }));
-});
+//   }));
+// });
 
 
 

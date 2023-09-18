@@ -50,7 +50,9 @@ const OrganizerSchema = new mongoose.Schema({
         trim: true,
     },
     
-});
+},
+  { timestamps: true }
+);
 
 
 OrganizerSchema.pre('save', async function () {
@@ -67,7 +69,7 @@ OrganizerSchema.methods.createJWT = function () {
 
   return jwt.sign (
     
-    { mongoId: this._id, email: this.email },
+    { mongoID: this._id, email: this.email },
     
     process.env.JWT_SECRET,
     
