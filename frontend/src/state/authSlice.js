@@ -4,7 +4,7 @@ const initialState = {
     userData: null,
     token: null,
     isLoading: false,
-    isAuthenticated: false
+    isAuthenticated: false,
 }
 
 export const authSlice = createSlice({
@@ -28,7 +28,6 @@ export const authSlice = createSlice({
         },
         setUserData: (state, action) => {
             state.userData = action.payload.userData;
-            console.log("finale2",state.userData)
         }
         // setErrors: (state, action) => {
 
