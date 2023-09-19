@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MDBPRegistration from "./MDBPRegistration";
 import MDBORegistration from "./MDBORegistration";
 import MDBOLogin from "./MDBOLogin";
 import MDBPLogin from "./MDBPLogin";
-import Loading from "./Loading";
-import axios from "axios";
+// import Loading from "./Loading";
+// import axios from "axios";
 import logo from "../assets/logoSymbol.png";
 import {
   MDBTabs,

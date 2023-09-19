@@ -21,4 +21,5 @@ form {
     align-items: center;
     justify-content: center; */
     /* border: 2px solid red; */
+    background: linear-gradient(135deg,#000e8b, #00c3ff);
 }
