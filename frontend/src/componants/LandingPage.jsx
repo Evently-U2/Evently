@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { section1Content } from "../utils/content";
 import LaunchButton from "./LaunchButton";
 import themeTypography from "../utils/typography";
 import { useSelector } from "react-redux";
-import Loading from "./Loading";
 
 const {
   // MainBG,
@@ -17,21 +15,25 @@ const {
   subtitle,
 } = section1Content;
 
+
+
 function LandingPage() {
   
+  let isParticipant = false;
 
   const isAuth = useSelector((state) => {
     return state.users.isAuthenticated;
   });
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
-      {!isLoading ? (
+      {/* {!isLoading ? (
         <Loading />
-      ) : (
+      ) : ( */}
         <Box>
+          {(localStorage.getItem('evently-jwt-participant') ? isParticipant=true : isParticipant=false)}
           <Container sx={{ height: "80vh", border: "2px solid black" }}>
             <Stack sx={{ height: "inherit" }} justifyContent="center">
               <Typography
@@ -52,15 +54,18 @@ function LandingPage() {
                   <LaunchButton value={"Join Us"} />
                 ) : (
                   <>
-                    <LaunchButton value={"Organize Events"} />
-                    <LaunchButton value={"Participate in Events"} />
+                    {
+                      isParticipant ? <LaunchButton value={"Participate in Events"} />
+                                    : <LaunchButton value={"Organize Events"} />
+                    }
+                    
                   </>
                 )}
               </Stack>
             </Stack>
           </Container>
         </Box>
-      )}
+      {/* )} */}
     </>
   );
 }

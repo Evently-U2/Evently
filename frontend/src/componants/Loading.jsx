@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Vortex } from 'react-loader-spinner'
+import { Vortex } from 'react-loader-spinner'
 
 function Loading() {
   return (
