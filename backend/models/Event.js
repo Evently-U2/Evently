@@ -8,21 +8,31 @@ const EventSchema = new mongoose.Schema({
         required: [true, 'Please provide event name'],
         trim: true,
         },
+    tagline: {
+        type: String,
+        required: [true, 'Please provide event tagline'],
+        trim: true,
+    },
     description: {
         type: String,
         required: [true, 'Please provide event description'],
         trim: true,
     },
-    website: {
+    maxTeamSize: {
         type: String,
-        default: "none",
+        required: [true, 'Please provide event maximum team size'],
         trim: true,
     },
-    socialMediaAcc: {
-        type: String,
-        default: "none",
-        trim: true,
-    },
+    // website: {
+    //     type: String,
+    //     default: "none",
+    //     trim: true,
+    // },
+    // socialMediaAcc: {
+    //     type: String,
+    //     default: "none",
+    //     trim: true,
+    // },
     charges: {
         type: String,
         required: [true, 'Please provide charges for the registration'],
@@ -47,11 +57,11 @@ const EventSchema = new mongoose.Schema({
         required: [true, 'Please provide contact number'],
         trim: true,
     },
-    typeOfEvent: {
-        type: String,
-        default: 'other',
-        trim: true,
-    },
+    // typeOfEvent: {
+    //     type: String,
+    //     default: 'other',
+    //     trim: true,
+    // },
     eventStartDate: {
         type: String,
         required: [true, 'Please provide start date for the event'],
@@ -62,7 +72,12 @@ const EventSchema = new mongoose.Schema({
         default: "none",
         trim: true,
     },
-    lastDateToRegister: {
+    registrationStartDate: {
+        type: String,
+        required: [true, 'Please provide last date to register'],
+        trim: true,
+    },
+    registrationLastDate: {
         type: String,
         required: [true, 'Please provide last date to register'],
         trim: true,
