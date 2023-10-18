@@ -7,6 +7,8 @@ const Errors = require('../errors/index')
 
 const createEvent = async (req, res) => {
 
+    console.log("Here is the re.body",req.body)
+
     const event = await Models.Event.create({ ...req.body })
 
 

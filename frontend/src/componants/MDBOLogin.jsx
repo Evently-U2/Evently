@@ -58,10 +58,16 @@ export default function MDBOLogin() {
     setIsLoading(true)
     event.preventDefault();
     // Send loginData to backend for authentication
+
+    // console.log(loginData)
     
     await axios.post('/login/organizer', loginData)
       .then((response) => {
+
+        // console.log(response)
         localStorage.setItem("evently-jwt-organizer", response.data.token);
+        localStorage.setItem("evently-organizer-id", response.data.organizer._id);
+        
         setIsLoading(false);
         navigate("/");
       })

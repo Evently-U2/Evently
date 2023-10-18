@@ -42,7 +42,7 @@ app.use(cookieParser())
 
 app.use('/register', routes.registeration)
 app.use('/login', middlewares.auth, routes.login)
-app.use('/events', middlewares.auth, routes.events)
+app.use('/events', routes.events)
 app.use('/teams', middlewares.auth, routes.teams)
 
 
