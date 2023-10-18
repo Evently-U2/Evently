@@ -133,7 +133,6 @@ const MDBORegistration = () => {
               console.log("Registered successfully")
               setIsLoading(false);
               navigate('/');
-
             })
             .catch((error) => {
               setIsLoading(false)

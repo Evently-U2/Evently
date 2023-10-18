@@ -23,11 +23,11 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === 'ValidationError') {
 
-    // customError.msg = Object.values(err.errors)
-    //   .map((item) => item.message)
-    //   .join(',')
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(',')
 
-    customError.msg = "validation failed"
+    // customError.msg = "validation failed"
     customError.statusCode = StatusCodes.BAD_REQUEST
 
   }

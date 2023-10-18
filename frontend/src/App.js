@@ -6,6 +6,7 @@ import MDBForm from './componants/MDBForm';
 import Layout from "./componants/Layout";
 import Event from "./componants/Event";
 import './App.css';
+import EventRegistration from "./componants/EventRegistration";
 function App() {
   
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path='/about' />
               <Route path='/blog' />
               <Route path='/profile' element={<ProfilePage />} />
+              <Route path='/event-registration' element={<EventRegistration />} />
             </Route>
             <Route path='/form' element={<MDBForm />} />
           </Routes>
